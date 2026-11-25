@@ -1,0 +1,72 @@
+
+{% extends "base.html" %}
+
+{% block title %}Cadastro de Disciplinas{% endblock %}
+
+{% block page_content %}
+
+<form method="POST" action="{{ url_for('disciplinas') }}">
+
+    <div class="form-group">
+        <label class="form-label">
+            Cadastre a nova disciplina e o semestre associado:
+        </label>
+
+        <input type="text"
+               name="disciplina"
+               class="form-control"
+               required>
+    </div>
+
+    <div class="form-group">
+
+        {% for i in range(1, 7) %}
+
+        <div>
+            <label style="font-weight: normal;">
+                <input type="radio"
+                       name="semestre"
+                       value="{{ i }}"
+                       required>
+                {{ i }}º semestre
+            </label>
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <button type="submit" class="btn btn-default">
+        Cadastrar
+    </button>
+
+</form>
+
+<h2>Relação de disciplinas cadastradas</h2>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Disciplina</th>
+            <th>Semestre</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for disciplina in disciplinas %}
+
+        <tr>
+            <td>{{ disciplina[0] }}</td>
+            <td>{{ disciplina[1] }}º semestre</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}
+

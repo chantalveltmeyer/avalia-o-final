@@ -1,0 +1,7 @@
+# Exemplo de conteúdo para o arquivo WSGI do PythonAnywhere.
+import sys
+project_home = '/home/SEU_USUARIO/avaliacao_semestral_flask'
+if project_home not in sys.path:
+    sys.path.insert(0, project_home)
+
+from app import app as application

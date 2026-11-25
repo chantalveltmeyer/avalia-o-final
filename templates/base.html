@@ -1,0 +1,235 @@
+
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Avaliação semestral{% endblock %}
+
+{% block styles %}
+{{ super() }}
+
+<style>
+  body {
+    padding-top: 50px;
+    color: #222;
+    font-family: Arial, sans-serif;
+  }
+
+  .navbar-inverse {
+    background-color: #222;
+    border-color: #080808;
+  }
+
+  .navbar-inverse .navbar-brand {
+    color: #aaa;
+  }
+
+  .navbar-inverse .navbar-nav>li>a {
+    color: #aaa;
+  }
+
+  .navbar-inverse .navbar-brand:hover,
+  .navbar-inverse .navbar-nav>li>a:hover {
+    color: #fff;
+  }
+
+  .container-fluid.page-wrap {
+    padding: 0 2%;
+  }
+
+  .home-title {
+    font-size: 36px;
+    font-weight: 400;
+    margin-top: 58px;
+    margin-bottom: 18px;
+  }
+
+  .home-info {
+    font-size: 24px;
+    font-weight: 400;
+    margin: 0 0 18px;
+  }
+
+  .local-time {
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+    margin-top: 16px;
+    color: #24527a;
+    font-size: 14px;
+  }
+
+  .form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .btn-default {
+    background: #fff;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+    margin-top: 18px;
+  }
+
+  .table>thead>tr>th {
+    border-bottom: 2px solid #ddd;
+  }
+
+  .table>tbody>tr>td {
+    vertical-align: middle;
+  }
+
+  .alert {
+    margin-top: 15px;
+  }
+</style>
+{% endblock %}
+
+
+{% block navbar %}
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+  <div class="container-fluid">
+
+    <div class="navbar-header">
+
+      <button type="button"
+              class="navbar-toggle collapsed"
+              data-toggle="collapse"
+              data-target="#main-nav">
+
+        <span class="sr-only">Abrir navegação</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+
+      </button>
+
+      <a class="navbar-brand" href="{{ url_for('index') }}">
+        Avaliação semestral
+      </a>
+
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-nav">
+
+      <ul class="nav navbar-nav">
+
+        <li>
+          <a href="{{ url_for('disciplinas') }}">
+            Cadastro de Disciplinas
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="unavailable-link">
+            Cadastro de Professores
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="unavailable-link">
+            Cadastro de Alunos
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="unavailable-link">
+            Cadastro de Cursos
+          </a>
+        </li>
+
+        <li>
+          <a href="#" class="unavailable-link">
+            Cadastro de Ocorrências
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid page-wrap">
+
+  <div id="page-content">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+      {% if messages %}
+
+        {% for category, message in messages %}
+
+          <div class="alert alert-{{ category }} alert-dismissible"
+               role="alert">
+
+            <button type="button"
+                    class="close"
+                    data-dismiss="alert">
+              &times;
+            </button>
+
+            {{ message }}
+
+          </div>
+
+        {% endfor %}
+
+      {% endif %}
+
+    {% endwith %}
+
+    {% block page_content %}{% endblock %}
+
+  </div>
+
+
+  <!-- DATA E HORA LOCAL -->
+
+  <div class="local-time">
+    Data e hora local é {{ local_datetime }}.
+  </div>
+
+</div>
+
+
+<!-- ABAS INDISPONÍVEIS -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  document.querySelectorAll(".unavailable-link").forEach(function (link) {
+
+    link.addEventListener("click", function (event) {
+
+      event.preventDefault();
+
+      document.getElementById("page-content").innerHTML = `
+        <h2>Não disponível</h2>
+      `;
+
+      window.scrollTo(0, 0);
+
+    });
+
+  });
+
+});
+
+</script>
+
+{% endblock %}
