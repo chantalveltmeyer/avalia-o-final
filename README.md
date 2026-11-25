@@ -8,14 +8,6 @@ Aplicação web Flask com visual inspirado nas imagens de referência, cadastro 
 
 Os outros itens da navegação exibem **“Não disponível”** no navegador sem criar rotas adicionais.
 
-## Personalizar nome e prontuário
-No arquivo `app.py`, altere os valores padrão:
-```python
-app.config["STUDENT_NAME"] = os.environ.get("STUDENT_NAME", "Fabio Teixeira")
-app.config["STUDENT_RECORD"] = os.environ.get("STUDENT_RECORD", "PT23820X")
-```
-Substitua pelos seus dados.
-
 ## Executar localmente
 Recomendado Python 3.10 ou 3.11:
 ```bash
